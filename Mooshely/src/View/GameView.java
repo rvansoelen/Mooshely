@@ -14,12 +14,12 @@ import Model.Sprite;
 @SuppressWarnings("serial")
 public final class GameView extends JPanel {
 
-    Set<Sprite> sprites;
+    public Set<Sprite> sprites;
 
-    public GameView() {
+    public GameView(Set<Sprite> sprites) {
         super();
         this.setBackground(Color.RED);
-        System.out.println("ddHHdd");
+        this.sprites = sprites;
 
     }
 

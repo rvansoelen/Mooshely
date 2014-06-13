@@ -9,18 +9,26 @@ import Model.Sprite;
 import View.GameView;
 
 public class GameEngine implements Runnable{
-	static JFrame frame;
-    static GameView view;
-    static GameManager manager;
-    Set<Sprite> sprites;
+	JFrame frame;
+    GameView view;
+    GameManager manager;
+    public Set<Sprite> sprites;
 	private int FPS = 60;
 	private int wait;
 	private boolean running = false;
 
-	public GameEngine(GameView view) {
+	public GameEngine() {
 		super();
-		this.view = view;
+		//Set up the frame, view and manager
+		frame = new JFrame("Mooshely!");
+		view = new GameView(sprites);
+		frame.setBounds(150,150,800,600);
+		frame.setResizable(false);
+		frame.add(view);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		manager = new GameManager();
+		frame.setVisible(true);
+		//Start the game
 		start();
 	}
 	
@@ -35,22 +43,22 @@ public class GameEngine implements Runnable{
 	
 	@Override
 	public void run() {
+		//The loop that constantly updates and redraws the game
 		while (running) {
 			long starttime = System.currentTimeMillis();
-			long wait = 1000000/FPS; //millis
+			long wait = 1000/FPS; //millis
 			
 			//Update game variables
 			manager.update();
 	 
 			//Draw view
 			view.repaint();
-			
+
 			long stoptime = System.currentTimeMillis();
 			long lapsed = stoptime-starttime;
 			if (lapsed < wait) {
 				try {
 					Thread.sleep(wait - lapsed);
-					System.out.println("ffff");
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -64,15 +72,8 @@ public class GameEngine implements Runnable{
 		}
 	}
 	
-	public static void main(String[] args) {
-		frame = new JFrame("Mooshely!");
-		view = new GameView();
-		frame.setBounds(150,150,800,600);
-		frame.setResizable(false);
-		frame.add(view);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
-	    new GameEngine(view);
+	public static void main(String[] args) {		
+	    new GameEngine();
 	}
 }
 
