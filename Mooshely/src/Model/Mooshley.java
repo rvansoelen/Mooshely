@@ -1,5 +1,9 @@
 package Model;
 
-public class Mooshely extends Sprite{
+public class Mooshley extends Sprite{
+	
+	public Mooshley(int x, int y) {
+		super(x, y);
+	}
 
 }

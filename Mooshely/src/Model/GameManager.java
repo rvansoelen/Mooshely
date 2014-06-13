@@ -19,7 +19,7 @@ public class GameManager{
 		 * 
 		 */
 		//for now:
-		sprites.add(new NormalMooshley());
+		sprites.add(new NormalMooshley(0, 0));
 	}
 	
 	public void update() {

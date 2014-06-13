@@ -1,5 +1,10 @@
 package Model;
 
 public class Sprite {
-	//All Drawable Objects
+	public int x;
+	public int y;
+	
+	protected Sprite(int x, int y) {
+		
+	}
 }
