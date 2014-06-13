@@ -25,7 +25,7 @@ public final class GameView extends JPanel {
 
     @Override
     public void paint(Graphics g) {
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("rsc/man.png"));
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("/man.png"));
         Image image = ii.getImage();
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(image, 0, 0, null);
