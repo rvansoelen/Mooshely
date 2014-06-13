@@ -49,7 +49,6 @@ public class GameEngine implements Runnable{
 			long lapsed = stoptime-starttime;
 			if (lapsed < wait) {
 				try {
-					System.out.println(wait);
 					Thread.sleep(wait - lapsed);
 					System.out.println("ffff");
 				} catch (InterruptedException e) {

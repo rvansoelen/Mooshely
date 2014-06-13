@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import Model.Sprite;
 
+@SuppressWarnings("serial")
 public final class GameView extends JPanel {
 
     Set<Sprite> sprites;
@@ -22,16 +23,9 @@ public final class GameView extends JPanel {
 
     }
 
-    public void draw() {
-        //Graphics2D g = (Graphics2D) getGraphics();
-        //g.drawString("Hello", 10, 10);
-        System.out.println("hhhhh");
-        //g.dispose();
-    }
-
     @Override
     public void paint(Graphics g) {
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("/man.png"));
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("rsc/man.png"));
         Image image = ii.getImage();
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(image, 0, 0, null);
