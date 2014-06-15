@@ -1,5 +1,7 @@
 package Control;
 
+import java.awt.Color;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.swing.JFrame;
@@ -12,7 +14,7 @@ public class GameEngine implements Runnable{
 	JFrame frame;
     GameView view;
     GameManager manager;
-    public Set<Sprite> sprites;
+    public Set<Sprite> sprites = new HashSet<Sprite>();
 	private int FPS = 60;
 	private int wait;
 	private boolean running = false;
@@ -24,9 +26,10 @@ public class GameEngine implements Runnable{
 		view = new GameView(sprites);
 		frame.setBounds(150,150,800,600);
 		frame.setResizable(false);
+		frame.setBackground(Color.RED);
 		frame.add(view);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		manager = new GameManager();
+		manager = new GameManager(sprites);
 		frame.setVisible(true);
 		//Start the game
 		start();

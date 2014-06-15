@@ -11,6 +11,11 @@ public class GameManager{
 	private Map<Integer, String> levels; //level index, level filename
 	public Set<Sprite> sprites;
 
+	public GameManager(Set<Sprite> sprites) {
+		this.sprites = sprites;
+		loadLevel(0);
+	}
+	
 	
 	public void loadLevel(int level) {
 		currentLevel = level;
@@ -23,7 +28,9 @@ public class GameManager{
 	}
 	
 	public void update() {
-
+		for (Sprite sprite : sprites) {
+			sprite.update();
+		}
 	}
 
 }

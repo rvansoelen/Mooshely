@@ -18,18 +18,19 @@ public final class GameView extends JPanel {
 
     public GameView(Set<Sprite> sprites) {
         super();
-        this.setBackground(Color.RED);
         this.sprites = sprites;
 
     }
 
     @Override
     public void paint(Graphics g) {
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("/man.png"));
-        Image image = ii.getImage();
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(image, 0, 0, null);
+    	Graphics2D g2d = (Graphics2D) g;
+    	for (Sprite sprite : sprites) {
+    		System.out.println(sprite.x+" "+sprite.y);
+    		//temporary background
+    		g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+        	g2d.drawImage(sprite.getImage(), sprite.x, sprite.y, null);
+    	}
     }
 
-//whats up
 }
