@@ -26,9 +26,7 @@ public final class GameView extends JPanel {
     public void paint(Graphics g) {
     	Graphics2D g2d = (Graphics2D) g;
     	for (Sprite sprite : sprites) {
-    		System.out.println(sprite.x+" "+sprite.y);
-    		//temporary background
-    		g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+    		g2d.fillRect(0, 0, this.getWidth(), this.getHeight());  //temporary background
         	g2d.drawImage(sprite.getImage(), sprite.x, sprite.y, null);
     	}
     }
