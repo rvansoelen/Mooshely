@@ -1,79 +1,42 @@
 package Control;
 
-import java.util.Set;
-
 import javax.swing.JFrame;
 
-import Model.GameManager;
-import Model.Sprite;
-import View.GameView;
+import View.GameViewFactory;
 
-public class GameEngine implements Runnable{
-	static JFrame frame;
-    static GameView view;
-    static GameManager manager;
-    Set<Sprite> sprites;
-	private int FPS = 60;
-	private int wait;
-	private boolean running = false;
+public class GameEngine {
+    private final JFrame frame = new JFrame();
+    private final GameViewFactory viewFactory;
+    private final KeyBoardListener keyBoardListener;
+    private final GameEngineRun gameRun;
 
-	public GameEngine(GameView view) {
-		super();
-		this.view = view;
-		manager = new GameManager();
-		start();
-	}
-	
-	public synchronized void start() {
-		running = true;
-		run();
-	}
-	
-	public synchronized void stop() {
-		running = false;
-	}
-	
-	@Override
-	public void run() {
-		while (running) {
-			long starttime = System.currentTimeMillis();
-			long wait = 1000000/FPS; //millis
-			
-			//Update game variables
-			manager.update();
-	 
-			//Draw view
-			view.repaint();
-			
-			long stoptime = System.currentTimeMillis();
-			long lapsed = stoptime-starttime;
-			if (lapsed < wait) {
-				try {
-					System.out.println(wait);
-					Thread.sleep(wait - lapsed);
-					System.out.println("ffff");
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			} else {
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-	
-	public static void main(String[] args) {
-		frame = new JFrame("Mooshely!");
-		view = new GameView();
-		frame.setBounds(150,150,800,600);
-		frame.setResizable(false);
-		frame.add(view);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
-	    new GameEngine(view);
-	}
+    public GameEngine(int frameX, int frameY, String title) {
+        this.frame.setSize(frameX, frameY);
+        this.frame.setTitle(title);
+        this.frame.setResizable(false);
+        this.frame.setFocusable(true);
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setVisible(true);
+        this.frame.setLocationRelativeTo(null);
+
+        this.viewFactory = new GameViewFactory(this);
+        this.keyBoardListener = new KeyBoardListener();
+        this.gameRun = new GameEngineRun(this);
+        this.frame.addKeyListener(this.keyBoardListener);
+        this.frame.add(this.gameRun);
+        new Thread(this.gameRun).start();
+    }
+
+    public KeyBoardListener getKeyBoardListener() {
+        return this.keyBoardListener;
+    }
+
+    public GameViewFactory getViewFactory() {
+        return this.viewFactory;
+    }
+
+    public JFrame getFrame() {
+        return this.frame;
+    }
+
 }
-
